@@ -24,31 +24,6 @@ public class AuthenticationController {
     return "home";
   }
 
-//  @PostMapping("/register")
-//  public ResponseEntity<AuthenticationResponse> register(
-//      @RequestBody RegisterRequest request
-//  ) {
-//    return ResponseEntity.ok(service.register(request));
-//  }
-
-//  @PostMapping("/register")
-//  public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-//    AuthenticationResponse response = service.register(request);
-//    HttpHeaders headers = new HttpHeaders();
-//    headers.setLocation(URI.create("/api/v1/auth/register/"));
-//    headers.add("Message", "Created");
-//    return new ResponseEntity<>(response, headers, HttpStatus.CREATED);
-//  }
-
-//  @PostMapping("/register")
-//  public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
-//    AuthenticationResponse response = service.register(request);
-//    System.out.println("Successful");
-//    HttpHeaders headers = new HttpHeaders();
-//    headers.setLocation(URI.create("/api/v1/auth/register/"));
-//    headers.add("Message", "Created");
-//    return new ResponseEntity<>("Successful",headers, HttpStatus.CREATED);
-//  }
 
   @PostMapping("/register")
   public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
