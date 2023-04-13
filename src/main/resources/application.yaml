@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+  datasource:
+    url: jdbc:mysql://localhost:3306/enrollment
+    username: root
+    password: 9880
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  main:
+    allow-circular-references: false
+  servlet:
+    multipart:
+      enabled: true
