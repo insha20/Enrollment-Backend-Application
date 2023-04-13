@@ -26,7 +26,7 @@ public class AuthenticationService {
 
   public AuthenticationResponse register(RegisterRequest request) {
     // Check if user with provided email already exists
-    var user = User.builder()
+    var user = new User.Builder()
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(Role.USER)
