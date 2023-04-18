@@ -1,4 +1,4 @@
-package com.springboot.Backend.user;
+package com.springboot.Backend.Models;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

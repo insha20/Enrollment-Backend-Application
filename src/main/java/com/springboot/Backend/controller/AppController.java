@@ -3,10 +3,10 @@ import com.springboot.Backend.auth.AuthenticationRequest;
 import com.springboot.Backend.auth.AuthenticationResponse;
 import com.springboot.Backend.auth.AuthenticationService;
 import com.springboot.Backend.auth.RegisterRequest;
-import com.springboot.Backend.user.EnrollUser;
-import com.springboot.Backend.user.EnrolledUserRepository;
-import com.springboot.Backend.user.User;
-import com.springboot.Backend.user.UserRepository;
+import com.springboot.Backend.Models.EnrollUser;
+import com.springboot.Backend.Models.EnrolledUserRepository;
+import com.springboot.Backend.Models.User;
+import com.springboot.Backend.Models.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,11 +40,10 @@ public class AppController {
   @CrossOrigin(origins = "http://127.0.0.1:5501")
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<AuthenticationResponse> register(
-          @RequestBody RegisterRequest request
-  ){
-    return ResponseEntity.ok(service.register(request));
+  public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(service.register(request));
   }
+
 
 
   @CrossOrigin(origins = "http://127.0.0.1:5501")
@@ -82,7 +81,6 @@ public class AppController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving user");
     }
   }
-
 }
 
 

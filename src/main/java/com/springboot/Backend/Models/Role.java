@@ -1,4 +1,4 @@
-package com.springboot.Backend.user;
+package com.springboot.Backend.Models;
 
 public enum Role {
     ADMIN,

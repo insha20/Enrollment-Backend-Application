@@ -1,6 +1,6 @@
 package com.springboot.Backend.token;
 
-import com.springboot.Backend.user.User;
+import com.springboot.Backend.Models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

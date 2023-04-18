@@ -4,11 +4,10 @@ import com.springboot.Backend.config.JwtService;
 import com.springboot.Backend.token.Token;
 import com.springboot.Backend.token.TokenRepository;
 import com.springboot.Backend.token.TokenType;
-import com.springboot.Backend.user.Role;
-import com.springboot.Backend.user.User;
-import com.springboot.Backend.user.UserRepository;
+import com.springboot.Backend.Models.Role;
+import com.springboot.Backend.Models.User;
+import com.springboot.Backend.Models.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,18 +25,18 @@ public class AuthenticationService {
 
   public AuthenticationResponse register(RegisterRequest request) {
     // Check if user with provided email already exists
-    var user = new User.Builder()
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(Role.USER)
-        .build();
+    var user = new User();
+    user.setEmail(request.getEmail());
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
+    user.setRole(Role.USER);
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
-        .token(jwtToken)
-        .build();
+            .token(jwtToken)
+            .build();
   }
+
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(

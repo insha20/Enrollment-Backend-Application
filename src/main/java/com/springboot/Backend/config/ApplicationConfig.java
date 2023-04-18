@@ -1,6 +1,6 @@
 package com.springboot.Backend.config;
 
-import com.springboot.Backend.user.UserRepository;
+import com.springboot.Backend.Models.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,6 @@ public class ApplicationConfig {
   private final UserRepository repository;
 
 
-  @Bean
   public UserDetailsService userDetailsService() {
     return email -> repository.findByEmail(email)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));

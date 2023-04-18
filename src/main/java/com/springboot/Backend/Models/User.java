@@ -1,4 +1,4 @@
-package com.springboot.Backend.user;
+package com.springboot.Backend.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springboot.Backend.token.Token;
@@ -77,6 +77,11 @@ public class User implements UserDetails {
     this.password = builder.password;
     this.role = builder.role;
     this.tokens = builder.tokens;
+  }
+  public User(String email, String password, Role role) {
+    this.email = email;
+    this.password = password;
+    this.role = role;
   }
 
   public static class Builder {

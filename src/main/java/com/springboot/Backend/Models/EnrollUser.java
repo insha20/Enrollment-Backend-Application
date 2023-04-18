@@ -1,4 +1,4 @@
-package com.springboot.Backend.user;
+package com.springboot.Backend.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
