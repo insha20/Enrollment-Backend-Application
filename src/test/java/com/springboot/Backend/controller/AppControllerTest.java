@@ -1,21 +1,10 @@
 package com.springboot.Backend.controller;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Primary;
 
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithUserDetails;
 import com.springboot.Backend.Models.*;
 import com.springboot.Backend.auth.AuthenticationRequest;
 import com.springboot.Backend.auth.AuthenticationResponse;
@@ -23,17 +12,14 @@ import com.springboot.Backend.auth.AuthenticationService;
 import com.springboot.Backend.auth.RegisterRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -46,7 +32,6 @@ import static com.springboot.Backend.Models.Role.USER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -62,7 +47,7 @@ public class AppControllerTest {
     @Mock
     private UserRepository userRepository;
 
-    @MockBean(name = "userDetailsService")
+    @MockBean
     private UserDetailsService userDetailsService;
 
     @Mock
@@ -70,6 +55,16 @@ public class AppControllerTest {
 
     @Mock
     private UserDetails userDetails;
+
+    @Autowired
+    private WebApplicationContext context;
+
+    @Mock
+    private EnrolledUserRepository enrolledUserRepository;
+
+    @Mock
+    private AuthenticationService authenticationService;
+
 
     @BeforeEach
     public void setup() {
@@ -84,19 +79,6 @@ public class AppControllerTest {
 
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
-
-
-    @Mock
-    private EnrolledUserRepository enrolledUserRepository;
-
-    @Autowired
-    private WebApplicationContext context;
-
-    @Mock
-    private UserDetails mockUserDetails;
-
-    @Mock
-    private AuthenticationService authenticationService;
 
     // Test for welcome endpoint
     @Test
@@ -135,6 +117,7 @@ public class AppControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").value("token"));
     }
+
     @Test
     @WithMockUser(username = "test@example.com")
     public void testGetUsers() throws Exception {
